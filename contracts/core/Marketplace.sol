@@ -98,7 +98,7 @@ contract Marketplace is Ownable {
    */
   function buyItem(
     uint offerId
-  ) external payable whenMarketIsOpen() {
+  ) external whenMarketIsOpen() {
     /* Let's talk to our token contract */
     BitfilxNFTInterface bitfilxNFT = BitfilxNFTInterface(bitfilxNFTContractAddress);
 
