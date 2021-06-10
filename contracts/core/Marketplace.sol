@@ -2,6 +2,7 @@ pragma solidity ^0.5.2;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "./BitfilxNFTInterface.sol";
 
 
@@ -17,6 +18,10 @@ contract Marketplace is Ownable {
 
   /* The address of our ERC721 token contract */
   address public bitfilxNFTContractAddress = address(0);
+
+  /* The address of Pay erc20 token contract */
+  string public payCoinSymbol;
+  address public payCoinContractAddress = address(0);
 
   /* If we need to freeze the marketplace for any reason */
   bool public isMarketPlaceOpen = false;
@@ -97,6 +102,8 @@ contract Marketplace is Ownable {
     /* Let's talk to our token contract */
     BitfilxNFTInterface bitfilxNFT = BitfilxNFTInterface(bitfilxNFTContractAddress);
 
+    IERC20 payCoin = IERC20(payCoinContractAddress);
+
     /* Are we still able to manage this item? */
     require(
       bitfilxNFT.getApproved(offers[offerId].itemId) == address(this),
@@ -104,7 +111,8 @@ contract Marketplace is Ownable {
     );
 
     /* Did the buyer send enough funds? */
-    require(msg.value == offers[offerId].price, "The sent amount is too low");
+    uint256 allowance = payCoin.allowance(msg.sender, address(this));
+    require(allowance >= offers[offerId].price, "Check the token allowance");
 
     /* Is the offer still open? */
     require(offers[offerId].isOpen, "Offer is closed");
@@ -133,7 +141,7 @@ contract Marketplace is Ownable {
     );
 
     /* We give the seller his money */
-    offers[offerId].seller.transfer(profit);
+    payCoin.transferFrom(msg.sender, address(offers[offerId].seller), profit);
   }
 
   /**
@@ -151,10 +159,27 @@ contract Marketplace is Ownable {
   }
 
   /**
+   * @dev Sets the address of Pay erc20 token contract
+   * @param newPayCoinContractAddress The address of the contract
+   */
+  function setPayCoinContractAddress(
+    string calldata newpayCoinSymbol,
+    address newPayCoinContractAddress
+  ) external onlyOwner() {
+    /* The address cannot be null */
+    require(newPayCoinContractAddress != address(0), "Contract address cannot be null");
+
+    /* We set the address */
+    payCoinContractAddress = newPayCoinContractAddress;
+    payCoinSymbol = newpayCoinSymbol;
+  }
+
+  /**
    * @dev Opens the market if the contract address is correct
    */
   function openMarketplace() external onlyOwner() {
     require(bitfilxNFTContractAddress != address(0), "Contract address is not set");
+    require(payCoinContractAddress != address(0), "Pay Coin Contract address is not set");
 
     isMarketPlaceOpen = true;
   }
