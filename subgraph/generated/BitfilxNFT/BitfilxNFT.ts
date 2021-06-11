@@ -797,10 +797,6 @@ export class CreateNFTCall__Inputs {
     return this._call.inputValues[1].value.toString();
   }
 
-  get class(): i32 {
-    return this._call.inputValues[2].value.toI32();
-  }
-
   get size(): i32 {
     return this._call.inputValues[3].value.toI32();
   }
