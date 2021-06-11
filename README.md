@@ -6,4 +6,6 @@ https://faucet.matic.network
 
 BitfilxNFT contract: 0x8E10C8923dd4956dc4A7246B8D20F9Ba4286447F
 
-Marketplace contract: 0x2c423b874cAD32f6024885646D574546Fbb1759e
+ERC20 token contract: 0x2d7882beDcbfDDce29Ba99965dd3cdF7fcB10A1e
+
+Marketplace contract: 0xc4ee62Df50E977A5fdfc990F6825690D8e5C90DE
