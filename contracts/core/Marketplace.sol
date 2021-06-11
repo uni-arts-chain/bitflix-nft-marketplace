@@ -114,6 +114,9 @@ contract Marketplace is Ownable {
     uint256 allowance = payCoin.allowance(msg.sender, address(this));
     require(allowance >= offers[offerId].price, "Check the token allowance");
 
+    uint256 coin_balance = payCoin.balanceOf(msg.sender);
+    require(coin_balance >= offers[offerId].price, "Check the token balanceOf");
+
     /* Is the offer still open? */
     require(offers[offerId].isOpen, "Offer is closed");
 
@@ -140,8 +143,11 @@ contract Marketplace is Ownable {
       txFee
     );
 
+    /* buyer pay coin */
+    payCoin.transferFrom(msg.sender, address(this), offers[offerId].price);
+
     /* We give the seller his money */
-    payCoin.transferFrom(msg.sender, address(offers[offerId].seller), profit);
+    payCoin.transferFrom(address(this), address(offers[offerId].seller), profit);
   }
 
   /**
@@ -196,6 +202,15 @@ contract Marketplace is Ownable {
    */
   function withdrawFunds() external onlyOwner() {
     address(uint160(owner())).transfer(address(this).balance);
+  }
+
+  /**
+   * @dev Lets the owner withdraw his coins
+   */
+  function withdrawCoins() external onlyOwner() {
+    IERC20 payCoin = IERC20(payCoinContractAddress);
+    uint256 coin_balance = payCoin.balanceOf(address(this));
+    payCoin.transfer(address(uint160(owner())), coin_balance);
   }
 
   /**
