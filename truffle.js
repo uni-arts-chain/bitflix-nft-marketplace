@@ -5,6 +5,8 @@ const mainnetUrl = `https://mainnet.infura.io/${process.env.INFURA}`;
 const ropstenUrl = `https://ropsten.infura.io/${process.env.INFURA}`;
 const rinkebyUrl = `https://rinkeby.infura.io/${process.env.INFURA}`;
 const kovanUrl = `https://kovan.infura.io/${process.env.INFURA}`;
+const mumbaiUrl = 'https://rpc-mumbai.maticvigil.com';
+const maticUrl = 'https://rpc-mainnet.matic.quiknode.pro';
 
 module.exports = {
   networks: {
@@ -36,6 +38,22 @@ module.exports = {
         return new HDWalletProvider(process.env.MNEMONIC, kovanUrl, 0);
       },
       network_id: 42,
+      gasPrice: 2000000000,
+      gas: 4712388,
+    },
+    mumbai: {
+      provider() {
+        return new HDWalletProvider(process.env.MNEMONIC, mumbaiUrl, 0);
+      },
+      network_id: 80001,
+      gasPrice: 2000000000,
+      gas: 4712388,
+    },
+    matic: {
+      provider() {
+        return new HDWalletProvider(process.env.MNEMONIC, maticUrl, 0);
+      },
+      network_id: 137,
       gasPrice: 2000000000,
       gas: 4712388,
     },
