@@ -1,4 +1,4 @@
-import { BigInt } from "@graphprotocol/graph-ts"
+import { store, Bytes, BigInt } from "@graphprotocol/graph-ts"
 import {
   BitflixNFT,
   Approval,
@@ -104,7 +104,7 @@ export function handleApprovalForAll(event: ApprovalForAll): void {}
 export function handleOwnershipTransferred(event: OwnershipTransferred): void {}
 
 export function handleTransfer(event: Transfer): void {
-  let tokenId = event.params.id;
+  let tokenId = event.params.tokenId;
   let id = event.address.toHex() + '_' + tokenId.toString();
   let contractId = event.address.toHex();
   let from = event.params.from.toHex();
