@@ -7,7 +7,7 @@ import {
   Transfer
 } from "../generated/BitflixNFT/BitflixNFT"
 import { ExampleEntity } from "../generated/schema"
-import { Token, tokenContract, Owner, All, OwnerPerTokenContract } from '../generated/schema';
+import { Token, TokenContract, Owner, All, OwnerPerTokenContract } from '../generated/schema';
 
 export function handleApproval(event: Approval): void {
   // Entities can be loaded from the store using a string ID; this ID
