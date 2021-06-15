@@ -17,6 +17,11 @@ dataSources:
         - ApprovalForAll
         - OwnershipTransferred
         - Transfer
+        - Token
+        - TokenContract
+        - Owner
+        - OwnerPerTokenContract
+        - All
       abis:
         - name: BitflixNFT
           file: ./abis/BitflixNFT.json
