@@ -9,6 +9,39 @@ import {
 import { ExampleEntity } from "../generated/schema"
 import { Token, TokenContract, Owner, All, OwnerPerTokenContract } from '../generated/schema';
 
+let zeroAddress = '0x0000000000000000000000000000000000000000';
+
+function toBytes(hexString: String): Bytes {
+    let result = new Uint8Array(hexString.length/2);
+    for (let i = 0; i < hexString.length; i += 2) {
+        result[i/2] = parseInt(hexString.substr(i, 2), 16) as u32;
+    }
+    return result as Bytes;
+}
+
+function supportsInterface(contract: BitflixNFT, interfaceId: String, expected : boolean = true) : boolean {
+    let supports = contract.try_supportsInterface(toBytes(interfaceId));
+    return !supports.reverted && supports.value == expected;
+}
+
+function setCharAt(str: string, index: i32, char: string): string {
+    if(index > str.length-1) return str;
+    return str.substr(0,index) + char + str.substr(index+1);
+}
+
+function normalize(strValue: string): string {
+    if (strValue.length === 1 && strValue.charCodeAt(0) === 0) {
+        return "";    
+    } else {
+        for (let i = 0; i < strValue.length; i++) {
+            if (strValue.charCodeAt(i) === 0) {
+                strValue = setCharAt(strValue, i, '\ufffd'); // graph-node db does not support string with '\u0000'
+            }
+        }
+        return strValue;
+    }
+}
+
 export function handleApproval(event: Approval): void {
   // Entities can be loaded from the store using a string ID; this ID
   // needs to be unique across all entities of the same type
@@ -85,7 +118,7 @@ export function handleTransfer(event: Transfer): void {
       all.numTokenContracts = BigInt.fromI32(0);
   }
   
-  let contract = EIP721.bind(event.address);
+  let contract = BitflixNFT.bind(event.address);
   let tokenContract = TokenContract.load(contractId);
   if(tokenContract == null) {
       // log.error('contract : {}',[event.address.toHexString()]);
@@ -117,13 +150,6 @@ export function handleTransfer(event: Transfer): void {
           return;
       }
       all.numTokenContracts = all.numTokenContracts.plus(BigInt.fromI32(1));
-
-      let doAllAddressesOwnTheirIdByDefault = contract.try_doAllAddressesOwnTheirIdByDefault();
-      if(!doAllAddressesOwnTheirIdByDefault.reverted) {
-          tokenContract.doAllAddressesOwnTheirIdByDefault = doAllAddressesOwnTheirIdByDefault.value; // only set it at creation
-      } else {
-          tokenContract.doAllAddressesOwnTheirIdByDefault = false;
-      }
   }
 
   if (from != zeroAddress || to != zeroAddress) { // skip if from zero to zero
