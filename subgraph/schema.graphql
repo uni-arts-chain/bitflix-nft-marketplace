@@ -34,9 +34,9 @@ type TokenContract @entity {
 
 type TokenInfo @entity {
   id: ID!
-  title String!
-  class_id BigInt!
-  size BigInt!
+  title: String!
+  class_id: BigInt!
+  size: BigInt!
 }
 
 type Owner @entity {
