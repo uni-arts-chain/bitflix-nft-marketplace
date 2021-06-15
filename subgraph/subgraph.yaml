@@ -6,7 +6,7 @@ dataSources:
     name: BitflixNFT
     network: mumbai
     source:
-      address: "0x8E10C8923dd4956dc4A7246B8D20F9Ba4286447F"
+      address: "0x3C4Ed7d7CF1c405e19E2F7b0050549Ad7022E18D"
       abi: BitflixNFT
     mapping:
       kind: ethereum/events
