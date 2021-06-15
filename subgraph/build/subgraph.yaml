@@ -3,11 +3,11 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: BitfilxNFT
+    name: BitflixNFT
     network: mumbai
     source:
-      address: "0x8E10C8923dd4956dc4A7246B8D20F9Ba4286447F"
-      abi: BitfilxNFT
+      address: "0x3C4Ed7d7CF1c405e19E2F7b0050549Ad7022E18D"
+      abi: BitflixNFT
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -17,9 +17,14 @@ dataSources:
         - ApprovalForAll
         - OwnershipTransferred
         - Transfer
+        - Token
+        - TokenContract
+        - Owner
+        - OwnerPerTokenContract
+        - All
       abis:
-        - name: BitfilxNFT
-          file: BitfilxNFT/abis/BitfilxNFT.json
+        - name: BitflixNFT
+          file: BitflixNFT/abis/BitflixNFT.json
       eventHandlers:
         - event: Approval(indexed address,indexed address,indexed uint256)
           handler: handleApproval
@@ -29,4 +34,4 @@ dataSources:
           handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: BitfilxNFT/BitfilxNFT.wasm
+      file: BitflixNFT/BitflixNFT.wasm
