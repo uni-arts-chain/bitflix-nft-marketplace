@@ -5,9 +5,9 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
 
 /**
- * @title BitfilxNFT: a ERC721 token
+ * @title BitflixNFT: a ERC721 token
  */
-contract BitfilxNFT is ERC721Full, Ownable {
+contract BitflixNFT is ERC721Full, Ownable {
 
   struct TokenInfo {
     string title;
@@ -18,7 +18,7 @@ contract BitfilxNFT is ERC721Full, Ownable {
   /* Our tokeninfo are stored here */
   TokenInfo[] public token_infos;
 
-  constructor() public ERC721Full("BitfilxNFT", "BNFT") {
+  constructor() public ERC721Full("BitflixNFT", "BNFT") {
   }
 
   /**

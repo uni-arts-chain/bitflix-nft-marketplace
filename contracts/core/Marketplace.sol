@@ -3,12 +3,12 @@ pragma solidity ^0.5.2;
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-import "./BitfilxNFTInterface.sol";
+import "./BitflixNFTInterface.sol";
 
 
 /**
  * @title A small marketplace allowing users to buy and sell a specific ERC721 token
- * @dev For this example, we are using a fictional token called BitfilxNFT
+ * @dev For this example, we are using a fictional token called BitflixNFT
  * @author Pickle Solutions https://github.com/picklesolutions
  */
 contract Marketplace is Ownable {
@@ -57,7 +57,7 @@ contract Marketplace is Ownable {
     uint price
   ) external whenMarketIsOpen() {
     /* Let's talk to our token contract */
-    BitfilxNFTInterface bitfilxNFT = BitfilxNFTInterface(bitfilxNFTContractAddress);
+    BitflixNFTInterface bitfilxNFT = BitflixNFTInterface(bitfilxNFTContractAddress);
 
     /* We need to be sure that the sender is the actual owner of the token */
     require(
@@ -100,7 +100,7 @@ contract Marketplace is Ownable {
     uint offerId
   ) external whenMarketIsOpen() {
     /* Let's talk to our token contract */
-    BitfilxNFTInterface bitfilxNFT = BitfilxNFTInterface(bitfilxNFTContractAddress);
+    BitflixNFTInterface bitfilxNFT = BitflixNFTInterface(bitfilxNFTContractAddress);
 
     IERC20 payCoin = IERC20(payCoinContractAddress);
 
@@ -152,16 +152,16 @@ contract Marketplace is Ownable {
 
   /**
    * @dev Sets the address of our ERC721 token contract
-   * @param newBitfilxNFTContractAddress The address of the contract
+   * @param newBitflixNFTContractAddress The address of the contract
    */
-  function setBitfilxNFTContractAddress(
-    address newBitfilxNFTContractAddress
+  function setBitflixNFTContractAddress(
+    address newBitflixNFTContractAddress
   ) external onlyOwner() {
     /* The address cannot be null */
-    require(newBitfilxNFTContractAddress != address(0), "Contract address cannot be null");
+    require(newBitflixNFTContractAddress != address(0), "Contract address cannot be null");
 
     /* We set the address */
-    bitfilxNFTContractAddress = newBitfilxNFTContractAddress;
+    bitfilxNFTContractAddress = newBitflixNFTContractAddress;
   }
 
   /**

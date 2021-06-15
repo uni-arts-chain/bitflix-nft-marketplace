@@ -3,19 +3,19 @@
 
 /* A few tests to see if everything is working as expected */
 
-const BitfilxNFT = artifacts.require('BitfilxNFT');
+const BitflixNFT = artifacts.require('BitflixNFT');
 
 let instance;
 
-contract('BitfilxNFT', (accounts) => {
-  it('Should deploy an instance of the BitfilxNFT contract', () => BitfilxNFT.deployed()
+contract('BitflixNFT', (accounts) => {
+  it('Should deploy an instance of the BitflixNFT contract', () => BitflixNFT.deployed()
     .then((contractInstance) => {
       instance = contractInstance;
     }));
 
   it('Should get the name of the ERC721 token', () => instance.name()
     .then((name) => {
-      assert.equal(name, 'BitfilxNFT', 'Token name is wrong!');
+      assert.equal(name, 'BitflixNFT', 'Token name is wrong!');
     }));
 
   it('Should get the symbol of the ERC721 token', () => instance.symbol()
