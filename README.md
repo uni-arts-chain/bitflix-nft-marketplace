@@ -30,5 +30,7 @@ Build completed: QmRG3kofuKPyYagMbjtZiYtnbuAzc2EXchFzxP24noBieP
 Deployed to https://thegraph.com/explorer/subgraph/tuminfei/bitflix
 
 Subgraph endpoints:
+
 Queries (HTTP):     https://api.thegraph.com/subgraphs/name/tuminfei/bitflix
+
 Subscriptions (WS): wss://api.thegraph.com/subgraphs/name/tuminfei/bitflix
