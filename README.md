@@ -13,12 +13,16 @@ Marketplace contract: 0x0deF3509015E744Ba1F01582A3bc35981197968a
 ## Subgraph
 
 ✔ Write compiled subgraph to build/
+
   Add file to IPFS build/schema.graphql
                 .. QmXg46U7qMQ2nzCZMYkUMKwWiFGxAEX654kHKjshiCtqsY
+
   Add file to IPFS build/BitflixNFT/abis/BitflixNFT.json
                 .. QmfVfFeuaEJx1iGt95iKwQHXsQCudD1QkUm3NRFrEiSWBG
+
   Add file to IPFS build/BitflixNFT/BitflixNFT.wasm
                 .. QmaJGxhEri97XEdMDKCFN44SK3LeYDeZX3aUVvqDr86rCS
+
 ✔ Upload subgraph to IPFS
 
 Build completed: QmRG3kofuKPyYagMbjtZiYtnbuAzc2EXchFzxP24noBieP
