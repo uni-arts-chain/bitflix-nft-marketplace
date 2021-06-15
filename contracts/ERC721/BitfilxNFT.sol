@@ -11,7 +11,7 @@ contract BitfilxNFT is ERC721Full, Ownable {
 
   struct TokenInfo {
     string title;
-    uint8 class;
+    uint8 class_id;
     uint8 size;
   }
 
@@ -27,13 +27,13 @@ contract BitfilxNFT is ERC721Full, Ownable {
   function createNFT(
     address user_address,
     string calldata title,
-    uint8 class,
+    uint8 class_id,
     uint8 size
     ) external onlyOwner() {
     uint tokenId = token_infos.push(
       TokenInfo({
         title: title,
-        class: class,
+        class_id: class_id,
         size: size
       })
     ) - 1;
@@ -48,12 +48,12 @@ contract BitfilxNFT is ERC721Full, Ownable {
     uint tokenId
   ) external view returns (
     string memory title,
-    uint8 class,
+    uint8 class_id,
     uint8 size
   ) {
     return (
       token_infos[tokenId].title,
-      token_infos[tokenId].class,
+      token_infos[tokenId].class_id,
       token_infos[tokenId].size
     );
   }

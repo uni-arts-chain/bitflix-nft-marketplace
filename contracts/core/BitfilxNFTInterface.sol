@@ -13,7 +13,7 @@ interface BitfilxNFTInterface {
   function createNFT(
     address user_address,
     string calldata title,
-    uint8 class,
+    uint8 class_id,
     uint8 size
     ) external;
 
@@ -24,7 +24,7 @@ interface BitfilxNFTInterface {
     uint tokenId
   ) external view returns (
     string memory title,
-    uint8 class,
+    uint8 class_id,
     uint8 size
   );
 
