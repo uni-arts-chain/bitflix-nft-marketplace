@@ -110,7 +110,7 @@ export class Transfer__Params {
   }
 }
 
-export class BitfilxNFT__token_infosResult {
+export class BitflixNFT__token_infosResult {
   value0: string;
   value1: i32;
   value2: i32;
@@ -136,7 +136,7 @@ export class BitfilxNFT__token_infosResult {
   }
 }
 
-export class BitfilxNFT__getNFTResult {
+export class BitflixNFT__getNFTResult {
   value0: string;
   value1: i32;
   value2: i32;
@@ -162,9 +162,9 @@ export class BitfilxNFT__getNFTResult {
   }
 }
 
-export class BitfilxNFT extends ethereum.SmartContract {
-  static bind(address: Address): BitfilxNFT {
-    return new BitfilxNFT("BitfilxNFT", address);
+export class BitflixNFT extends ethereum.SmartContract {
+  static bind(address: Address): BitflixNFT {
+    return new BitflixNFT("BitflixNFT", address);
   }
 
   balanceOf(owner: Address): BigInt {
@@ -422,14 +422,14 @@ export class BitfilxNFT extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toString());
   }
 
-  token_infos(param0: BigInt): BitfilxNFT__token_infosResult {
+  token_infos(param0: BigInt): BitflixNFT__token_infosResult {
     let result = super.call(
       "token_infos",
       "token_infos(uint256):(string,uint8,uint8)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
-    return new BitfilxNFT__token_infosResult(
+    return new BitflixNFT__token_infosResult(
       result[0].toString(),
       result[1].toI32(),
       result[2].toI32()
@@ -438,7 +438,7 @@ export class BitfilxNFT extends ethereum.SmartContract {
 
   try_token_infos(
     param0: BigInt
-  ): ethereum.CallResult<BitfilxNFT__token_infosResult> {
+  ): ethereum.CallResult<BitflixNFT__token_infosResult> {
     let result = super.tryCall(
       "token_infos",
       "token_infos(uint256):(string,uint8,uint8)",
@@ -449,7 +449,7 @@ export class BitfilxNFT extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new BitfilxNFT__token_infosResult(
+      new BitflixNFT__token_infosResult(
         value[0].toString(),
         value[1].toI32(),
         value[2].toI32()
@@ -472,19 +472,19 @@ export class BitfilxNFT extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getNFT(tokenId: BigInt): BitfilxNFT__getNFTResult {
+  getNFT(tokenId: BigInt): BitflixNFT__getNFTResult {
     let result = super.call("getNFT", "getNFT(uint256):(string,uint8,uint8)", [
       ethereum.Value.fromUnsignedBigInt(tokenId)
     ]);
 
-    return new BitfilxNFT__getNFTResult(
+    return new BitflixNFT__getNFTResult(
       result[0].toString(),
       result[1].toI32(),
       result[2].toI32()
     );
   }
 
-  try_getNFT(tokenId: BigInt): ethereum.CallResult<BitfilxNFT__getNFTResult> {
+  try_getNFT(tokenId: BigInt): ethereum.CallResult<BitflixNFT__getNFTResult> {
     let result = super.tryCall(
       "getNFT",
       "getNFT(uint256):(string,uint8,uint8)",
@@ -495,7 +495,7 @@ export class BitfilxNFT extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new BitfilxNFT__getNFTResult(
+      new BitflixNFT__getNFTResult(
         value[0].toString(),
         value[1].toI32(),
         value[2].toI32()
@@ -795,6 +795,10 @@ export class CreateNFTCall__Inputs {
 
   get title(): string {
     return this._call.inputValues[1].value.toString();
+  }
+
+  get class_id(): i32 {
+    return this._call.inputValues[2].value.toI32();
   }
 
   get size(): i32 {

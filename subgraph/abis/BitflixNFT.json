@@ -300,7 +300,7 @@
     "name": "token_infos",
     "outputs": [
       { "internalType": "string", "name": "title", "type": "string" },
-      { "internalType": "uint8", "name": "class", "type": "uint8" },
+      { "internalType": "uint8", "name": "class_id", "type": "uint8" },
       { "internalType": "uint8", "name": "size", "type": "uint8" }
     ],
     "payable": false,
@@ -345,7 +345,7 @@
     "inputs": [
       { "internalType": "address", "name": "user_address", "type": "address" },
       { "internalType": "string", "name": "title", "type": "string" },
-      { "internalType": "uint8", "name": "class", "type": "uint8" },
+      { "internalType": "uint8", "name": "class_id", "type": "uint8" },
       { "internalType": "uint8", "name": "size", "type": "uint8" }
     ],
     "name": "createNFT",
@@ -362,7 +362,7 @@
     "name": "getNFT",
     "outputs": [
       { "internalType": "string", "name": "title", "type": "string" },
-      { "internalType": "uint8", "name": "class", "type": "uint8" },
+      { "internalType": "uint8", "name": "class_id", "type": "uint8" },
       { "internalType": "uint8", "name": "size", "type": "uint8" }
     ],
     "payable": false,

@@ -1,11 +1,11 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
-  BitfilxNFT,
+  BitflixNFT,
   Approval,
   ApprovalForAll,
   OwnershipTransferred,
   Transfer
-} from "../generated/BitfilxNFT/BitfilxNFT"
+} from "../generated/BitflixNFT/BitflixNFT"
 import { ExampleEntity } from "../generated/schema"
 
 export function handleApproval(event: Approval): void {
