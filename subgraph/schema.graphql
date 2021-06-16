@@ -51,3 +51,11 @@ type OwnerPerTokenContract @entity {
   contract: TokenContract!
   numTokens: BigInt!
 }
+
+type Lock @entity {
+  id: ID!
+  user: Bytes!
+  startTime: BigInt!
+  amount: BigInt!
+  redeemed: Boolean!
+}

@@ -35,3 +35,24 @@ dataSources:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
       file: BitflixNFT/BitflixNFT.wasm
+  - kind: ethereum/contract
+    name: BitflixPoint
+    network: mumbai
+    source:
+      address: "0x7768c5e38Ad2DF9aFf54E1e36219dB968CEaccA7"
+      abi: BitflixPoint
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Lock
+      abis:
+        - name: BitflixPoint
+          file: BitflixPoint/abis/BitflixPoint.json
+      eventHandlers:
+        - event: Lock(indexed address,uint256,uint256)
+          handler: handleLock
+        - event: Redeem(indexed address,uint256,uint256)
+          handler: handleRedeem
+      file: BitflixPoint/BitflixPoint.wasm

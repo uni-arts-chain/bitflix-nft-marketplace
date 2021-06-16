@@ -8,7 +8,7 @@ import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "./IBitflixPoint.sol";
 
 
-contract BitflixPoint is IBitflixPoint {
+contract BitflixPoint is IBitflixPoint, Ownable {
 	using SafeMath for uint256;
 	mapping (address => uint256) public points;
 
@@ -34,9 +34,9 @@ contract BitflixPoint is IBitflixPoint {
 
 	IERC20 public btflx;
 
-	event Lock(address user, uint256 amount, uint256 at, uint256 id);
-	event Redeem(address user, uint256 amount, uint256 at, uint256 id);
-	event Consume(address user, uint256 amount, uint256 at);
+	event Lock(address indexed user, uint256 amount, uint256 id);
+	event Redeem(address indexed user, uint256 amount, uint256 id);
+	event Consume(address indexed user, uint256 points);
 
 	modifier onlyMarketplace() { 
 		require (msg.sender == marketplace, "Forbidden"); 
@@ -56,6 +56,10 @@ contract BitflixPoint is IBitflixPoint {
 		initialized = true;
 	}
 
+	function updateMarketplace(address newMarketplace) public onlyOwner {
+		marketplace = newMarketplace;
+	}
+
 	function lock(uint256 amount) public {
 		require(amount > 0, "Lock amount cannot be 0");
 		btflx.transferFrom(msg.sender, address(this), amount);
@@ -72,7 +76,7 @@ contract BitflixPoint is IBitflixPoint {
 		uint256 point = amount.mul(lockRate).div(lockRateMax).div(1e18);
 		points[msg.sender] = points[msg.sender].add(point);
 
-		emit Lock(msg.sender, amount, now, locks.length - 1);
+		emit Lock(msg.sender, amount, locks.length - 1);
 	}
 
 	function lockLength() public view returns(uint256) {
@@ -85,13 +89,13 @@ contract BitflixPoint is IBitflixPoint {
 		require(ulock.duration.add(ulock.startTime) <= now, "Locking");
 		btflx.transfer(ulock.user, ulock.amount);
 		ulock.redeemed = true;
-		emit Redeem(ulock.user, ulock.amount, now, ulock.id);
+		emit Redeem(ulock.user, ulock.amount, ulock.id);
 	}
 
 	function consume(address user, uint256 val) public onlyMarketplace {
 		require(val > 0, "Cannot be 0");
 		points[user] = points[user].sub(val);
-		emit Consume(user, val, now);
+		emit Consume(user, val);
 	}
 
 	function pointOf(address user) public view returns(uint256) {

@@ -10,6 +10,11 @@ ERC20 token contract: 0x2d7882beDcbfDDce29Ba99965dd3cdF7fcB10A1e
 
 Marketplace contract: 0x0deF3509015E744Ba1F01582A3bc35981197968a
 
+BitflixToken contract: 0x2bDD4c2207837A3c82C65664cFE19889803de6D0
+
+BitflixPoint contract: 0x7768c5e38Ad2DF9aFf54E1e36219dB968CEaccA7
+
+
 ## Subgraph
 
 ✔ Write compiled subgraph to build/
