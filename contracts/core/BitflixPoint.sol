@@ -5,7 +5,10 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 
 
-contract BitflixPoints {
+import "./IBitflixPoint.sol";
+
+
+contract BitflixPoint is IBitflixPoint {
 	using SafeMath for uint256;
 	mapping (address => uint256) public points;
 
@@ -89,6 +92,10 @@ contract BitflixPoints {
 		require(val > 0, "Cannot be 0");
 		points[user] = points[user].sub(val);
 		emit Consume(user, val, now);
+	}
+
+	function pointOf(address user) public view returns(uint256) {
+		return points[user];
 	}
 
 	function getUserLockIds(address user) public view returns(uint256[] memory) {

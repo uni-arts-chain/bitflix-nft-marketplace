@@ -1,14 +1,14 @@
 const { toBN } = require('web3-utils');
-const BitflixPoints = artifacts.require('BitflixPoints');
+const BitflixPoint = artifacts.require('BitflixPoint');
 const BitflixToken = artifacts.require('BitflixToken');
 
 const BASE = toBN(10 ** 18)
 const MAX = toBN('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
 
-contract('BitflixPoints', async accounts => {
+contract('BitflixPoint', async accounts => {
 	beforeEach(async () => {
     this.token = await BitflixToken.new(accounts[0])
-  	this.instance = await BitflixPoints.new(this.token.address);
+  	this.instance = await BitflixPoint.new(this.token.address);
   	await this.instance.initialize(1000, 30 * 24 * 3600, accounts[1])
   });
 
@@ -57,6 +57,15 @@ contract('BitflixPoints', async accounts => {
   	let point = await this.instance.points(accounts[0])
 
   	assert.equal(point.toString(), toBN(50).toString())
+  })
+
+  it("pointOf", async() => {
+  	let amount = toBN(1000).mul(BASE)
+  	this.token.approve(this.instance.address, MAX, { from: accounts[0] })
+  	await this.instance.lock(amount, {  from: accounts[0] })
+
+  	let pointVal = await this.instance.pointOf(accounts[0])
+  	assert.equal(pointVal.toString(), '100')
   })
 
 });
