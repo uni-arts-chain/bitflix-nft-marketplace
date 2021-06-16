@@ -6,6 +6,7 @@ import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "./BitflixNFTInterface.sol";
 
 
+
 /**
  * @title A small marketplace allowing users to buy and sell a specific ERC721 token
  * @dev For this example, we are using a fictional token called BitflixNFT
