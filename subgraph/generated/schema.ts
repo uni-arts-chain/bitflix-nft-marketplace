@@ -582,12 +582,12 @@ export class TokenTransaction extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get tx_hash(): Bytes {
+  get tx_hash(): string {
     let value = this.get("tx_hash");
-    return value.toBytes();
+    return value.toString();
   }
 
-  set tx_hash(value: Bytes) {
-    this.set("tx_hash", Value.fromBytes(value));
+  set tx_hash(value: string) {
+    this.set("tx_hash", Value.fromString(value));
   }
 }
