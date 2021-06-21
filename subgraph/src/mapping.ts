@@ -117,6 +117,12 @@ export function handleTransfer(event: Transfer): void {
       all.numTokens = BigInt.fromI32(0);
       all.numTokenContracts = BigInt.fromI32(0);
   }
+
+  // TokenTransaction
+  let tx_hash = event.transaction.hash.toHex();
+  let transaction = new TokenTransaction(tokenId);
+  transaction.hash = tx_hash;
+  transaction.save();
   
   let contract = BitflixNFT.bind(event.address);
   let tokenContract = TokenContract.load(contractId);

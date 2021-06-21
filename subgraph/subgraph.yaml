@@ -21,6 +21,7 @@ dataSources:
         - TokenContract
         - Owner
         - OwnerPerTokenContract
+        - TokenTransaction
         - All
       abis:
         - name: BitflixNFT
