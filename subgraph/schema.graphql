@@ -62,6 +62,5 @@ type Lock @entity {
 
 type TokenTransaction @entity {
   id: ID!
-  hash: Bytes! # tx_hash
+  tx_hash: Bytes! # tx_hash
 }
-
