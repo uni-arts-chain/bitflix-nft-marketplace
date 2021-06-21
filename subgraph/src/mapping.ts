@@ -7,7 +7,7 @@ import {
   Transfer
 } from "../generated/BitflixNFT/BitflixNFT"
 import { ExampleEntity } from "../generated/schema"
-import { Token, TokenContract, Owner, All, OwnerPerTokenContract } from '../generated/schema';
+import { Token, TokenContract, Owner, All, OwnerPerTokenContract, TokenTransaction } from '../generated/schema';
 
 let zeroAddress = '0x0000000000000000000000000000000000000000';
 
