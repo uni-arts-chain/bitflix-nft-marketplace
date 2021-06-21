@@ -109,6 +109,7 @@ export function handleTransfer(event: Transfer): void {
   let contractId = event.address.toHex();
   let from = event.params.from.toHex();
   let to = event.params.to.toHex();
+  let tx_hash = event.transaction.hash.toHex();
 
   let all = All.load('all');
   if (all == null) {
@@ -119,8 +120,7 @@ export function handleTransfer(event: Transfer): void {
   }
 
   // TokenTransaction
-  let tx_hash = event.transaction.hash.toHex();
-  let transaction = new TokenTransaction(tokenId);
+  let transaction = new TokenTransaction(tokenId.toString());
   transaction.tx_hash = tx_hash;
   transaction.save();
   
