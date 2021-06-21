@@ -59,3 +59,9 @@ type Lock @entity {
   amount: BigInt!
   redeemed: Boolean!
 }
+
+type TokenTransaction @entity {
+  id: ID!
+  hash: Bytes! # tx_hash
+}
+
