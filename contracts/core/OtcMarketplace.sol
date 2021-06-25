@@ -4,7 +4,7 @@ import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
 import "./BitflixNFTInterface.sol";
-import "./IBitflixPoint.sol";
+
 
 
 /**
@@ -12,16 +12,13 @@ import "./IBitflixPoint.sol";
  * @dev For this example, we are using a fictional token called BitflixNFT
  * @author Pickle Solutions https://github.com/picklesolutions
  */
-contract Marketplace is Ownable {
+contract OtcMarketplace is Ownable {
   /* Our events */
   event NewOffer(uint offerId);
   event ItemBought(uint offerId);
 
   /* The address of our ERC721 token contract */
   address public bitfilxNFTContractAddress = address(0);
-
-  /* The address of our Point contract */
-  address public pointContractAddress = address(0);
 
   /* The address of Pay erc20 token contract */
   string public payCoinSymbol;
@@ -108,8 +105,6 @@ contract Marketplace is Ownable {
 
     IERC20 payCoin = IERC20(payCoinContractAddress);
 
-    IBitflixPoint pointContract = IBitflixPoint(pointContractAddress);
-
     /* Are we still able to manage this item? */
     require(
       bitfilxNFT.getApproved(offers[offerId].itemId) == address(this),
@@ -122,11 +117,6 @@ contract Marketplace is Ownable {
 
     uint256 coin_balance = payCoin.balanceOf(msg.sender);
     require(coin_balance >= offers[offerId].price, "Check the token balanceOf");
-
-    /* Did the buyer enough point? */
-    uint256 pointLimit = offers[offerId].price / 1e6;
-    uint256 point_balance = pointContract.pointOf(msg.sender);
-    require(point_balance >= pointLimit, "Check the point balanceOf");
 
     /* Is the offer still open? */
     require(offers[offerId].isOpen, "Offer is closed");
@@ -156,9 +146,6 @@ contract Marketplace is Ownable {
 
     /* buyer pay coin */
     payCoin.transferFrom(msg.sender, address(this), offers[offerId].price);
-
-    /* consume point */
-    pointContract.consume(msg.sender, pointLimit);
 
     /* We give the seller his money */
     payCoin.transferFrom(address(this), address(offers[offerId].seller), profit);
@@ -195,26 +182,11 @@ contract Marketplace is Ownable {
   }
 
   /**
-   * @dev Sets the address of Point contract
-   * @param newPointContractAddress The address of the contract
-   */
-  function setPointContractAddress(
-    address newPointContractAddress
-  ) external onlyOwner() {
-    /* The address cannot be null */
-    require(newPointContractAddress != address(0), "Contract address cannot be null");
-
-    /* We set the address */
-    pointContractAddress = newPointContractAddress;
-  }
-
-  /**
    * @dev Opens the market if the contract address is correct
    */
   function openMarketplace() external onlyOwner() {
     require(bitfilxNFTContractAddress != address(0), "Contract address is not set");
     require(payCoinContractAddress != address(0), "Pay Coin Contract address is not set");
-    require(pointContractAddress != address(0), "Point Contract address is not set");
 
     isMarketPlaceOpen = true;
   }
