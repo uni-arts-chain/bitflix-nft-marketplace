@@ -1,4 +1,4 @@
-import { store, Bytes, BigInt } from "@graphprotocol/graph-ts"
+import { store, Bytes, BigInt, TypedMap } from "@graphprotocol/graph-ts"
 
 import {
   NewOffer,
