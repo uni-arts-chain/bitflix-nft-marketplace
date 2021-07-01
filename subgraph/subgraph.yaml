@@ -73,8 +73,8 @@ dataSources:
         - name: Marketplace
           file: ./abis/Marketplace.json
       eventHandlers:
-        - event: NewOffer(uint)
+        - event: NewOffer(uint256)
           handler: handleNewOffer
-        - event: ItemBought(uint)
+        - event: ItemBought(uint256)
           handler: handleItemBought
       file: ./src/marketplace.ts
