@@ -71,7 +71,7 @@ dataSources:
         - MarketplaceOffer
       abis:
         - name: Marketplace
-          file: Marketplace/abis/Marketplace.json
+          file: ./abis/Marketplace.json
       eventHandlers:
         - event: NewOffer(uint)
           handler: handleNewOffer
