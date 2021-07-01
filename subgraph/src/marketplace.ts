@@ -1,4 +1,4 @@
-import { store, Bytes, BigInt, TypedMap } from "@graphprotocol/graph-ts"
+import { store, Bytes, BigInt } from "@graphprotocol/graph-ts"
 
 import {
   NewOffer,
@@ -15,12 +15,12 @@ export function handleNewOffer(event: NewOffer): void {
     offer = new MarketplaceOfferEntity(event.params.offerId.toString())
   }
   let contract = Marketplace.bind(event.address)
-  let offer_info = contract.try_getOffer(event.params.offerId)
+  let offer_info = contract.getOffer(event.params.offerId)
 
-  offer.item_id = offer_info.get['value0']
-  offer.price = offer_info.get['value1']
-  offer.seller = offer_info.get['value2']
-  offer.buyer = offer_info.get['value3']
-  offer.isOpen = offer_info.get['value4']
+  offer.item_id = offer_info.value0
+  offer.price = offer_info.value1
+  offer.seller = offer_info.value2
+  offer.buyer = offer_info.value3
+  offer.isOpen = offer_info.value4
   offer.save()
 }
