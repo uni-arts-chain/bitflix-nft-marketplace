@@ -65,11 +65,11 @@ type TokenTransaction @entity {
   tx_hash: String! # tx_hash
 }
 
-type MarketplaceOffer @entity({
+type MarketplaceOffer @entity {
   id: ID!
   item_id: BigInt!
   price: BigInt!
   seller: Bytes! # address
   buyer: Bytes! # address
   isOpen: Boolean!
-})
+}
