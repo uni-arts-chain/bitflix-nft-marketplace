@@ -21,6 +21,7 @@ dataSources:
         - TokenContract
         - Owner
         - OwnerPerTokenContract
+        - TokenTransaction
         - All
       abis:
         - name: BitflixNFT
@@ -72,8 +73,8 @@ dataSources:
         - name: Marketplace
           file: Marketplace/abis/Marketplace.json
       eventHandlers:
-        - event: NewOffer(uint)
+        - event: NewOffer(uint256)
           handler: handleNewOffer
-        - event: ItemBought(uint)
+        - event: ItemBought(uint256)
           handler: handleItemBought
       file: Marketplace/Marketplace.wasm

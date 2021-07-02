@@ -59,3 +59,17 @@ type Lock @entity {
   amount: BigInt!
   redeemed: Boolean!
 }
+
+type TokenTransaction @entity {
+  id: ID!
+  tx_hash: String! # tx_hash
+}
+
+type MarketplaceOffer @entity {
+  id: ID!
+  item_id: BigInt!
+  price: BigInt!
+  seller: Bytes! # address
+  buyer: Bytes! # address
+  isOpen: Boolean!
+}
