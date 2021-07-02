@@ -24,3 +24,16 @@ export function handleNewOffer(event: NewOffer): void {
   offer.isOpen = offer_info.value4
   offer.save()
 }
+
+export function handleItemBought(event: ItemBought): void {
+  let offer = MarketplaceOfferEntity.load(event.params.offerId.toString())
+  if(offer == null) {
+    return;
+  }
+  let contract = Marketplace.bind(event.address)
+  let offer_info = contract.getOffer(event.params.offerId)
+  // update offer
+  offer.buyer = offer_info.value3
+  offer.isOpen = offer_info.value4
+  offer.save()
+}
