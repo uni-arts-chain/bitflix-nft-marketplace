@@ -107,9 +107,6 @@ contract Marketplace is Ownable {
   function closeOffer(
     uint offerId
   ) external onlyOwner() {
-    /* Let's talk to our token contract */
-    BitflixNFTInterface bitfilxNFT = BitflixNFTInterface(bitfilxNFTContractAddress);
-
     /* Is the offer still open? */
     require(offers[offerId].isOpen, "Offer is closed");
 
