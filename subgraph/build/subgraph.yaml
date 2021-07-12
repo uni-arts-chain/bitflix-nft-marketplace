@@ -61,7 +61,7 @@ dataSources:
     name: Marketplace
     network: mumbai
     source:
-      address: "0xd08d1Ceb79c959Bb001d01f443A9e9765C14Ab97"
+      address: "0xad3b1EC016347931769B327f7b6d705e5698D920"
       abi: Marketplace
     mapping:
       kind: ethereum/events
