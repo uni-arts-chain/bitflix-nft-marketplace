@@ -145,10 +145,10 @@ contract OtcMarketplace is Ownable {
     );
 
     /* buyer pay coin */
-    payCoin.transferFrom(msg.sender, address(this), offers[offerId].price);
-
+    payCoin.transferFrom(offers[offerId].buyer, address(this), txFee);
+    
     /* We give the seller his money */
-    payCoin.transferFrom(address(this), address(offers[offerId].seller), profit);
+    payCoin.transferFrom(offers[offerId].buyer, offers[offerId].seller, profit);
   }
 
   /**
