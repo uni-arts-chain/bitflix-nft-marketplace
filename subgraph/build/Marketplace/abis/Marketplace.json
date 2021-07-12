@@ -9,6 +9,19 @@
         "type": "uint256"
       }
     ],
+    "name": "CloseOffer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "offerId",
+        "type": "uint256"
+      }
+    ],
     "name": "ItemBought",
     "type": "event"
   },
@@ -83,6 +96,21 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "lockPointRate",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -299,6 +327,21 @@
         "type": "uint256"
       }
     ],
+    "name": "closeOffer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "offerId",
+        "type": "uint256"
+      }
+    ],
     "name": "buyItem",
     "outputs": [],
     "payable": false,
@@ -368,6 +411,21 @@
     "constant": false,
     "inputs": [],
     "name": "closeMarketplace",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "newLockPointRate",
+        "type": "uint256"
+      }
+    ],
+    "name": "setLockPointRate",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
