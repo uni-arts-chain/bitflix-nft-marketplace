@@ -15,6 +15,7 @@ import "./IBitflixPoint.sol";
 contract Marketplace is Ownable {
   /* Our events */
   event NewOffer(uint offerId);
+  event CloseOffer(uint offerId);
   event ItemBought(uint offerId);
 
   /* The address of our ERC721 token contract */
@@ -32,6 +33,9 @@ contract Marketplace is Ownable {
 
   /* Our fee (the value is divided by 100, so 250 is 2.50%) */
   uint public marketplaceFee = 250;
+
+  /* Our lock point rate (the value is divided by 100, so 150 is 1.50%) */
+  uint public lockPointRate = 0;
 
   /* The minimum sale price (in Wei) */
   uint public minPrice = 10000;
@@ -97,6 +101,26 @@ contract Marketplace is Ownable {
   }
 
   /**
+   * @dev close an Offer
+   * @param offerId The id of the offer
+   */
+  function closeOffer(
+    uint offerId
+  ) external onlyOwner() {
+    /* Let's talk to our token contract */
+    BitflixNFTInterface bitfilxNFT = BitflixNFTInterface(bitfilxNFTContractAddress);
+
+    /* Is the offer still open? */
+    require(offers[offerId].isOpen, "Offer is closed");
+
+    /* We close the offer and register the buyer */
+    offers[offerId].isOpen = false;
+
+    /* We tell the world there is a cancel offer */
+    emit CloseOffer(offerId);
+  }
+
+  /**
    * @dev Buys an item
    * @param offerId The id of the offer
    */
@@ -124,7 +148,7 @@ contract Marketplace is Ownable {
     require(coin_balance >= offers[offerId].price, "Check the token balanceOf");
 
     /* Did the buyer enough point? */
-    uint256 pointLimit = offers[offerId].price / 1e6;
+    uint256 pointLimit = SafeMath.mul( offers[offerId].price / 1e6, lockPointRate) / 100;
     uint256 point_balance = pointContract.pointOf(msg.sender);
     require(point_balance >= pointLimit, "Check the point balanceOf");
 
@@ -158,8 +182,10 @@ contract Marketplace is Ownable {
     payCoin.transferFrom(msg.sender, address(this), offers[offerId].price);
 
     /* consume point */
-    pointContract.consume(msg.sender, pointLimit);
-
+    if(pointLimit > 0) {
+      pointContract.consume(msg.sender, pointLimit);
+    }
+    
     /* We give the seller his money */
     payCoin.transferFrom(address(this), address(offers[offerId].seller), profit);
   }
@@ -224,6 +250,13 @@ contract Marketplace is Ownable {
    */
   function closeMarketplace() external onlyOwner() {
     isMarketPlaceOpen = false;
+  }
+
+  /**
+   * @dev Set lockPointRate
+   */
+  function setLockPointRate(uint newLockPointRate) external onlyOwner() {
+    lockPointRate = newLockPointRate;
   }
 
   /**
