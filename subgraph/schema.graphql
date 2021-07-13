@@ -61,6 +61,7 @@ type Lock @entity {
 }
 
 type TokenTransaction @entity {
+  id: ID!
   token_id: BigInt!
   tx_hash: String! # tx_hash
 }

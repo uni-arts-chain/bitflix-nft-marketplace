@@ -120,7 +120,7 @@ export function handleTransfer(event: Transfer): void {
   }
 
   // TokenTransaction
-  let transaction = new TokenTransaction();
+  let transaction = new TokenTransaction(tx_hash);
   transaction.token_id = tokenId.toString();
   transaction.tx_hash = tx_hash;
   transaction.save();
