@@ -582,6 +582,15 @@ export class TokenTransaction extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get token_id(): BigInt {
+    let value = this.get("token_id");
+    return value.toBigInt();
+  }
+
+  set token_id(value: BigInt) {
+    this.set("token_id", Value.fromBigInt(value));
+  }
+
   get tx_hash(): string {
     let value = this.get("tx_hash");
     return value.toString();
