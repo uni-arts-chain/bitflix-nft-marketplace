@@ -1,13 +1,13 @@
 pragma solidity ^0.5.2;
 
 import "openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol";
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import "openzeppelin-solidity/contracts/access/roles/WhitelistedRole.sol";
 
 
 /**
  * @title BitflixNFT: a ERC721 token
  */
-contract BitflixNFT is ERC721Full, Ownable {
+contract BitflixNFT is ERC721Full, WhitelistedRole {
 
   struct TokenInfo {
     string title;
@@ -29,7 +29,7 @@ contract BitflixNFT is ERC721Full, Ownable {
     string calldata title,
     uint8 class_id,
     uint8 size
-    ) external onlyOwner() {
+    ) external onlyWhitelisted() {
     uint tokenId = token_infos.push(
       TokenInfo({
         title: title,
