@@ -14,6 +14,7 @@ BitflixToken contract: 0x2bDD4c2207837A3c82C65664cFE19889803de6D0
 
 BitflixPoint contract: 0x7768c5e38Ad2DF9aFf54E1e36219dB968CEaccA7
 
+OtcMarketplace contract: 0x162644d10529783391a66ba967fde38f3c20E20B
 
 ## Subgraph
 
