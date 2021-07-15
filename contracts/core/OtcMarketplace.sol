@@ -15,6 +15,7 @@ import "./BitflixNFTInterface.sol";
 contract OtcMarketplace is Ownable {
   /* Our events */
   event NewOffer(uint offerId);
+  event CloseOffer(uint offerId);
   event ItemBought(uint offerId);
 
   /* The address of our ERC721 token contract */
@@ -27,8 +28,8 @@ contract OtcMarketplace is Ownable {
   /* If we need to freeze the marketplace for any reason */
   bool public isMarketPlaceOpen = false;
 
-  /* Our fee (the value is divided by 100, so 250 is 2.50%) */
-  uint public marketplaceFee = 250;
+  /* Our fee (the value is divided by 100, so 100 is 10%) */
+  uint public marketplaceFee = 1000;
 
   /* The minimum sale price (in Wei) */
   uint public minPrice = 10000;
@@ -91,6 +92,23 @@ contract OtcMarketplace is Ownable {
 
     /* We tell the world there is a new offer */
     emit NewOffer(offerId);
+  }
+
+  /**
+   * @dev close an Offer
+   * @param offerId The id of the offer
+   */
+  function closeOffer(
+    uint offerId
+  ) external onlyOwner() {
+    /* Is the offer still open? */
+    require(offers[offerId].isOpen, "Offer is closed");
+
+    /* We close the offer and register the buyer */
+    offers[offerId].isOpen = false;
+
+    /* We tell the world there is a cancel offer */
+    emit CloseOffer(offerId);
   }
 
   /**
