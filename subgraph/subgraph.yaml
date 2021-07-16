@@ -77,6 +77,8 @@ dataSources:
           handler: handleNewOffer
         - event: ItemBought(uint256)
           handler: handleItemBought
+        - event: CloseOffer(uint256)
+          handler: handleCloseOffer
       file: ./src/marketplace.ts
   - kind: ethereum/contract
     name: OtcMarketplace
@@ -98,4 +100,6 @@ dataSources:
           handler: handleNewOffer
         - event: ItemBought(uint256)
           handler: handleItemBought
+        - event: CloseOffer(uint256)
+          handler: handleCloseOffer
       file: ./src/otc_marketplace.ts
