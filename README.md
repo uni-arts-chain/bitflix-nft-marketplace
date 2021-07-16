@@ -21,22 +21,43 @@ OtcMarketplace contract: 0x162644d10529783391a66ba967fde38f3c20E20B
 ✔ Write compiled subgraph to build/
 
   Add file to IPFS build/schema.graphql
-                .. QmXg46U7qMQ2nzCZMYkUMKwWiFGxAEX654kHKjshiCtqsY
+
+                .. Qmac9qPvqM6VphMwj1pDUzQXHRQuM6DJ9kLvtWuGmwcux1
 
   Add file to IPFS build/BitflixNFT/abis/BitflixNFT.json
+
                 .. QmfVfFeuaEJx1iGt95iKwQHXsQCudD1QkUm3NRFrEiSWBG
 
-  Add file to IPFS build/BitflixNFT/BitflixNFT.wasm
-                .. QmaJGxhEri97XEdMDKCFN44SK3LeYDeZX3aUVvqDr86rCS
+  Add file to IPFS build/BitflixPoint/abis/BitflixPoint.json
 
+                .. QmUb6irNPYaqhyeVqtVQyfEDzgFywpdjY6kvNEJhthtwRp
+
+  Add file to IPFS build/Marketplace/abis/Marketplace.json
+
+                .. QmS89j2SYudpxQN678aDMg8NszgufPbDyEkcPXS8JJ4mEh
+
+  Add file to IPFS build/OtcMarketplace/abis/OtcMarketplace.json
+
+                .. QmUh6D3Ma4REjrZfUUvNgqzmefj6EAtfSGj4s1ig7Xqzrq
+
+  Add file to IPFS build/BitflixNFT/BitflixNFT.wasm
+
+                .. QmfGYVzsy2Lixp9pMS1ALqn1y7kiW7nizvDY1gjaiH6Txz
+
+  Add file to IPFS build/BitflixPoint/BitflixPoint.wasm
+
+                .. QmXFFAUYhRKxgw2BvaxfNSBMvY5etF4a4d5p7yAc2jVQ9W
+
+  Add file to IPFS build/Marketplace/Marketplace.wasm
+
+                .. QmcFPYr4XS8cSK46WBisE7BbCdFjZWNNh6x3g4VPRPAxMT
+
+  Add file to IPFS build/OtcMarketplace/OtcMarketplace.wasm
+
+                .. QmZFAChS1rfvZ86c87khbL3qSCsx3Q8sqXr3xUmToU5GEY
+                
 ✔ Upload subgraph to IPFS
 
-Build completed: QmRG3kofuKPyYagMbjtZiYtnbuAzc2EXchFzxP24noBieP
+Build completed: QmdKRqaovrCN4jzkZa4fsJiwo9fw6uBKLpLwhXqzYhzdmv
 
 Deployed to https://thegraph.com/explorer/subgraph/tuminfei/bitflix
-
-Subgraph endpoints:
-
-Queries (HTTP):     https://api.thegraph.com/subgraphs/name/tuminfei/bitflix
-
-Subscriptions (WS): wss://api.thegraph.com/subgraphs/name/tuminfei/bitflix
