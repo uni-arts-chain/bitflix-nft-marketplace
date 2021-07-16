@@ -77,4 +77,29 @@ dataSources:
           handler: handleNewOffer
         - event: ItemBought(uint256)
           handler: handleItemBought
+        - event: CloseOffer(uint256)
+          handler: handleCloseOffer
       file: Marketplace/Marketplace.wasm
+  - kind: ethereum/contract
+    name: OtcMarketplace
+    network: mumbai
+    source:
+      address: "0x162644d10529783391a66ba967fde38f3c20E20B"
+      abi: OtcMarketplace
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - OtcMarketplaceOffer
+      abis:
+        - name: OtcMarketplace
+          file: OtcMarketplace/abis/OtcMarketplace.json
+      eventHandlers:
+        - event: NewOffer(uint256)
+          handler: handleNewOffer
+        - event: ItemBought(uint256)
+          handler: handleItemBought
+        - event: CloseOffer(uint256)
+          handler: handleCloseOffer
+      file: OtcMarketplace/OtcMarketplace.wasm
