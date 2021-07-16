@@ -74,3 +74,12 @@ type MarketplaceOffer @entity {
   buyer: Bytes! # address
   isOpen: Boolean!
 }
+
+type OtcMarketplaceOffer @entity {
+  id: ID!
+  item_id: BigInt!
+  price: BigInt!
+  seller: Bytes! # address
+  buyer: Bytes! # address
+  isOpen: Boolean!
+}
