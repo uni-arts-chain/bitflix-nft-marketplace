@@ -86,7 +86,7 @@ export class OwnershipTransferred__Params {
   }
 }
 
-export class Marketplace__offersResult {
+export class OtcMarketplace__offersResult {
   value0: BigInt;
   value1: BigInt;
   value2: Address;
@@ -118,7 +118,7 @@ export class Marketplace__offersResult {
   }
 }
 
-export class Marketplace__getOfferResult {
+export class OtcMarketplace__getOfferResult {
   value0: BigInt;
   value1: BigInt;
   value2: Address;
@@ -150,9 +150,9 @@ export class Marketplace__getOfferResult {
   }
 }
 
-export class Marketplace extends ethereum.SmartContract {
-  static bind(address: Address): Marketplace {
-    return new Marketplace("Marketplace", address);
+export class OtcMarketplace extends ethereum.SmartContract {
+  static bind(address: Address): OtcMarketplace {
+    return new OtcMarketplace("OtcMarketplace", address);
   }
 
   bitfilxNFTContractAddress(): Address {
@@ -216,25 +216,6 @@ export class Marketplace extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  lockPointRate(): BigInt {
-    let result = super.call("lockPointRate", "lockPointRate():(uint256)", []);
-
-    return result[0].toBigInt();
-  }
-
-  try_lockPointRate(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "lockPointRate",
-      "lockPointRate():(uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   marketplaceFee(): BigInt {
     let result = super.call("marketplaceFee", "marketplaceFee():(uint256)", []);
 
@@ -269,14 +250,14 @@ export class Marketplace extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  offers(param0: BigInt): Marketplace__offersResult {
+  offers(param0: BigInt): OtcMarketplace__offersResult {
     let result = super.call(
       "offers",
       "offers(uint256):(uint256,uint256,address,address,bool)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
-    return new Marketplace__offersResult(
+    return new OtcMarketplace__offersResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
       result[2].toAddress(),
@@ -285,7 +266,9 @@ export class Marketplace extends ethereum.SmartContract {
     );
   }
 
-  try_offers(param0: BigInt): ethereum.CallResult<Marketplace__offersResult> {
+  try_offers(
+    param0: BigInt
+  ): ethereum.CallResult<OtcMarketplace__offersResult> {
     let result = super.tryCall(
       "offers",
       "offers(uint256):(uint256,uint256,address,address,bool)",
@@ -296,7 +279,7 @@ export class Marketplace extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new Marketplace__offersResult(
+      new OtcMarketplace__offersResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
         value[2].toAddress(),
@@ -359,29 +342,6 @@ export class Marketplace extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toString());
   }
 
-  pointContractAddress(): Address {
-    let result = super.call(
-      "pointContractAddress",
-      "pointContractAddress():(address)",
-      []
-    );
-
-    return result[0].toAddress();
-  }
-
-  try_pointContractAddress(): ethereum.CallResult<Address> {
-    let result = super.tryCall(
-      "pointContractAddress",
-      "pointContractAddress():(address)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
   usersToOffersId(param0: Address, param1: BigInt): BigInt {
     let result = super.call(
       "usersToOffersId",
@@ -433,14 +393,14 @@ export class Marketplace extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getOffer(offerId: BigInt): Marketplace__getOfferResult {
+  getOffer(offerId: BigInt): OtcMarketplace__getOfferResult {
     let result = super.call(
       "getOffer",
       "getOffer(uint256):(uint256,uint256,address,address,bool)",
       [ethereum.Value.fromUnsignedBigInt(offerId)]
     );
 
-    return new Marketplace__getOfferResult(
+    return new OtcMarketplace__getOfferResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
       result[2].toAddress(),
@@ -451,7 +411,7 @@ export class Marketplace extends ethereum.SmartContract {
 
   try_getOffer(
     offerId: BigInt
-  ): ethereum.CallResult<Marketplace__getOfferResult> {
+  ): ethereum.CallResult<OtcMarketplace__getOfferResult> {
     let result = super.tryCall(
       "getOffer",
       "getOffer(uint256):(uint256,uint256,address,address,bool)",
@@ -462,7 +422,7 @@ export class Marketplace extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new Marketplace__getOfferResult(
+      new OtcMarketplace__getOfferResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
         value[2].toAddress(),
@@ -687,36 +647,6 @@ export class SetPayCoinContractAddressCall__Outputs {
   }
 }
 
-export class SetPointContractAddressCall extends ethereum.Call {
-  get inputs(): SetPointContractAddressCall__Inputs {
-    return new SetPointContractAddressCall__Inputs(this);
-  }
-
-  get outputs(): SetPointContractAddressCall__Outputs {
-    return new SetPointContractAddressCall__Outputs(this);
-  }
-}
-
-export class SetPointContractAddressCall__Inputs {
-  _call: SetPointContractAddressCall;
-
-  constructor(call: SetPointContractAddressCall) {
-    this._call = call;
-  }
-
-  get newPointContractAddress(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class SetPointContractAddressCall__Outputs {
-  _call: SetPointContractAddressCall;
-
-  constructor(call: SetPointContractAddressCall) {
-    this._call = call;
-  }
-}
-
 export class OpenMarketplaceCall extends ethereum.Call {
   get inputs(): OpenMarketplaceCall__Inputs {
     return new OpenMarketplaceCall__Inputs(this);
@@ -765,36 +695,6 @@ export class CloseMarketplaceCall__Outputs {
   _call: CloseMarketplaceCall;
 
   constructor(call: CloseMarketplaceCall) {
-    this._call = call;
-  }
-}
-
-export class SetLockPointRateCall extends ethereum.Call {
-  get inputs(): SetLockPointRateCall__Inputs {
-    return new SetLockPointRateCall__Inputs(this);
-  }
-
-  get outputs(): SetLockPointRateCall__Outputs {
-    return new SetLockPointRateCall__Outputs(this);
-  }
-}
-
-export class SetLockPointRateCall__Inputs {
-  _call: SetLockPointRateCall;
-
-  constructor(call: SetLockPointRateCall) {
-    this._call = call;
-  }
-
-  get newLockPointRate(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class SetLockPointRateCall__Outputs {
-  _call: SetLockPointRateCall;
-
-  constructor(call: SetLockPointRateCall) {
     this._call = call;
   }
 }

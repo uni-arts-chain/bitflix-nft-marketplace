@@ -676,3 +676,79 @@ export class MarketplaceOffer extends Entity {
     this.set("isOpen", Value.fromBoolean(value));
   }
 }
+
+export class OtcMarketplaceOffer extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save OtcMarketplaceOffer entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save OtcMarketplaceOffer entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("OtcMarketplaceOffer", id.toString(), this);
+  }
+
+  static load(id: string): OtcMarketplaceOffer | null {
+    return store.get("OtcMarketplaceOffer", id) as OtcMarketplaceOffer | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get item_id(): BigInt {
+    let value = this.get("item_id");
+    return value.toBigInt();
+  }
+
+  set item_id(value: BigInt) {
+    this.set("item_id", Value.fromBigInt(value));
+  }
+
+  get price(): BigInt {
+    let value = this.get("price");
+    return value.toBigInt();
+  }
+
+  set price(value: BigInt) {
+    this.set("price", Value.fromBigInt(value));
+  }
+
+  get seller(): Bytes {
+    let value = this.get("seller");
+    return value.toBytes();
+  }
+
+  set seller(value: Bytes) {
+    this.set("seller", Value.fromBytes(value));
+  }
+
+  get buyer(): Bytes {
+    let value = this.get("buyer");
+    return value.toBytes();
+  }
+
+  set buyer(value: Bytes) {
+    this.set("buyer", Value.fromBytes(value));
+  }
+
+  get isOpen(): boolean {
+    let value = this.get("isOpen");
+    return value.toBoolean();
+  }
+
+  set isOpen(value: boolean) {
+    this.set("isOpen", Value.fromBoolean(value));
+  }
+}
