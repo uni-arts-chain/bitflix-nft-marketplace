@@ -100,9 +100,12 @@ contract OtcMarketplace is Ownable {
    */
   function closeOffer(
     uint offerId
-  ) external onlyOwner() {
+  ) external whenMarketIsOpen() {
     /* Is the offer still open? */
     require(offers[offerId].isOpen, "Offer is closed");
+
+    /* Is the offer is owner */
+    require(offers[offerId].seller == msg.sender , "Sender does not own this offer");
 
     /* We close the offer and register the buyer */
     offers[offerId].isOpen = false;
