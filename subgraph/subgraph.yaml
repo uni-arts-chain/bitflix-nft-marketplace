@@ -84,7 +84,7 @@ dataSources:
     name: OtcMarketplace
     network: mumbai
     source:
-      address: "0x162644d10529783391a66ba967fde38f3c20E20B"
+      address: "0x1dEb41725A1D56d32972C3C9b09bF6e9D5eF9E59"
       abi: OtcMarketplace
     mapping:
       kind: ethereum/events
