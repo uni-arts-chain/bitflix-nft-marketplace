@@ -1,5 +1,6 @@
 require('dotenv').config();
 const HDWalletProvider = require('truffle-hdwallet-provider');
+const PrivateKeyProvider = require("truffle-privatekey-provider");
 
 const mainnetUrl = `https://mainnet.infura.io/${process.env.INFURA}`;
 const ropstenUrl = `https://ropsten.infura.io/${process.env.INFURA}`;
@@ -7,6 +8,7 @@ const rinkebyUrl = `https://rinkeby.infura.io/${process.env.INFURA}`;
 const kovanUrl = `https://kovan.infura.io/${process.env.INFURA}`;
 const mumbaiUrl = 'https://rpc-mumbai.maticvigil.com';
 const maticUrl = 'https://rpc-mainnet.matic.quiknode.pro';
+const privateKey = "9944bf61b22c97d7c238057148....";
 
 module.exports = {
   networks: {
@@ -17,6 +19,14 @@ module.exports = {
       gas: 4712388,
       gasPrice: 2000000000,
     },
+    // development: {
+    //   provider() {
+    //     return new PrivateKeyProvider(privateKey, "http://testnet.uniarts.me:9933/");
+    //   },
+    //   network_id: '*',
+    //   gas: 4712388,
+    //   gasPrice: 2000000000,
+    // },
     ropsten: {
       provider() {
         return new HDWalletProvider(process.env.MNEMONIC, ropstenUrl, 0);
