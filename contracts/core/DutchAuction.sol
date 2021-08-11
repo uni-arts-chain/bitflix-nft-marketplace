@@ -6,7 +6,6 @@ import "openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721.sol";
 import "openzeppelin-solidity/contracts/token/ERC721/IERC721Receiver.sol";
 import "openzeppelin-solidity/contracts/utils/ReentrancyGuard.sol";
-import "./DutchAuctionStorage.sol";
 
 contract DutchAuction is ReentrancyGuard, IERC721Receiver {
 
@@ -25,6 +24,53 @@ contract DutchAuction is ReentrancyGuard, IERC721Receiver {
     address public USDT_ADDRESS;
 
     address public STORAGE_ADDESS;
+
+    // structs
+    struct NFT {
+        address contractAddress;
+        uint    tokenId;
+        uint    startingPrice;
+        uint    decrementPerEpoch;
+        uint    reservePrice;
+    }
+    
+    struct AuctionResult {
+        address bidder;
+        uint bidAmount;
+    }
+
+    struct Match {
+        address creatorAddress;
+        uint openBlock;
+        uint expiryBlock;
+        uint blockPerEpoch;
+        uint nftCount;
+    }
+
+    // state
+    // matchId => Match
+    mapping(string => Match) public  matches;
+
+    // matchId => index => NFT
+    mapping(string => mapping(uint => NFT)) public  matchNFTs;
+    
+    // matchId => Result
+    mapping(string => mapping(uint => AuctionResult)) public  matchResults;
+
+    // address to balance
+    mapping(address => uint) private creatorBalance;
+
+    // events
+    event CreateAuctionEvent(
+        address creatorAddress, 
+        string matchId, 
+        uint openBlock, 
+        uint expiryBlock, 
+        uint blockPerEpoch,
+        NFT[] nft
+    );
+    event PlayerBidEvent(string matchId, address playerAddress, uint tokenIndex, uint bid);
+    event RewardEvent   (string matchId, uint tokenIndex, address winnerAddress);
 
     // modifier 
     modifier validTokenIndex(string memory matchId, uint tokenIndex) {
@@ -47,6 +93,49 @@ contract DutchAuction is ReentrancyGuard, IERC721Receiver {
 
     constructor(address usdcContractAddress) public {
         USDT_ADDRESS = usdcContractAddress;
+    }
+
+    function createAuction(
+        string calldata matchId, 
+        uint openBlock, 
+        uint expiryBlock,
+        uint blockPerEpoch,
+        NFT[] calldata nfts) external nonReentrant {
+
+        // check if matchId is occupied
+        require(matches[matchId].creatorAddress == ADDRESS_NULL, "matchId is occupied");
+        
+        // check valid openBlock, expiryBlock, expiryExtensionOnBidUpdate
+        require(expiryBlock > openBlock && openBlock > block.number, "condition expiryBlock > openBlock > current block count not satisfied");
+
+        // check item count
+        require(nfts.length > 0 && nfts.length <= MAX_ITEM_PER_AUCTION, "number of nft must be greater than 0 and less than MAX_ITEM_PER_AUCTION");
+
+        // deposit item to contract
+        for(uint i = 0; i < nfts.length; ++i) {
+
+            // check valid token
+            require(nfts[i].decrementPerEpoch <= nfts[i].startingPrice, "decrement should not exceed starting price");
+
+            // if meet requirements then send tokens to contract
+            IERC721(nfts[i].contractAddress).safeTransferFrom(msg.sender, address(this), nfts[i].tokenId);
+            
+            // create slots for items
+            matchResults[matchId][i]    = AuctionResult(ADDRESS_NULL, nfts[i].startingPrice);
+            matchNFTs[matchId][i]       = nfts[i];
+        }
+
+        // create match
+        matches[matchId] = Match(
+            msg.sender,
+            openBlock,
+            expiryBlock,
+            blockPerEpoch,
+            nfts.length
+        );
+
+        // emit events
+        emit CreateAuctionEvent(msg.sender, matchId, openBlock, expiryBlock, blockPerEpoch, nfts);
     }
 
     function get_current_price(string memory matchId, uint tokenIndex) public view returns(uint) {
